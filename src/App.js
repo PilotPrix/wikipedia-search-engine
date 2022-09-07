@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const [searchinfo, setSearchInfo] = useState({});
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Wiki Seeker</h1>
+        <form className="search-box">
+          <input type="search" placeholder="What are you looking for?" />
+        </form>
+        <p>Search Results: 0</p>
       </header>
+      <div className="results">
+        <div className="result">
+          <h3>Title Goes header</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, reiciendis.
+          </p>
+          <a href="#">Read more</a>
+        </div>
+      </div>
     </div>
   );
 }
