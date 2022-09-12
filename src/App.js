@@ -5,12 +5,30 @@ function App() {
   const [results, setResults] = useState([]);
   const [searchinfo, setSearchInfo] = useState({});
 
+  const handleSearch = async e => {
+    e.preventDefault();
+    if (search === " ") return;
+    const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${search}`;
+    const response = await fetch(endpoint);
+
+    console.log(response);
+
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+
+    const json = await response.json();
+
+    setResults(json.query.search);
+    setSearchInfo(json.query.searchinfo);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Wiki Seeker</h1>
-        <form className="search-box">
-          <input type="search" placeholder="What are you looking for?" />
+        <form className="search-box" onSubmit={handleSearch}>
+          <input type="search" placeholder="What are you looking for?" value={search} onChange={e => setSearch(e.target.value)}/>
         </form>
         <p>Search Results: 0</p>
       </header>
